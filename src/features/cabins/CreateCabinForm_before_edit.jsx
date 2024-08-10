@@ -17,7 +17,7 @@ function CreateCabinForm() {
   // console.log(errors);
   const queryClient = useQueryClient();
 
-  const { isLoading: isCreating, mutate } = useMutation({
+  const { isPending: isCreating, mutate } = useMutation({
     mutationFn: createEditCabin,
     onSuccess: () => {
       toast.success('New cabin successfully created');
@@ -34,12 +34,13 @@ function CreateCabinForm() {
     mutate({ ...data, image: data.image[0] });
   }
 
-  function onError(errors) {
-    // console.log(errors.name.message);
-  }
+  // function onError(errors) {
+  //   console.log(errors.name.message);
+  // }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      {/* come secdondo parametro prende onError */}
       <FormRow label='Cabin name' error={errors?.name?.message}>
         <Input
           type='text'
@@ -50,7 +51,6 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-
       <FormRow label='Maximum capacity' error={errors?.maxCapacity?.message}>
         <Input
           type='number'
@@ -65,7 +65,6 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-
       <FormRow label='Regular price' error={errors?.regularPrice?.message}>
         <Input
           type='number'
@@ -80,7 +79,6 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-
       <FormRow label='Discount' error={errors?.discount?.message}>
         <Input
           type='number'
@@ -95,10 +93,10 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-
       <FormRow
         label='Description for website'
-        error={errors?.description?.message}>
+        error={errors?.description?.message}
+      >
         <Textarea
           type='number'
           id='description'
@@ -109,7 +107,6 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-
       <FormRow label='Cabin photo' error={errors?.image?.message}>
         <FileInput
           id='image'
@@ -119,7 +116,6 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-
       <FormRow>
         {/* type is an HTML attribute! */}
         <Button variation='secondary' type='reset'>
